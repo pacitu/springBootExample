@@ -9,23 +9,26 @@ buildscript {
     }
     dependencies {
         classpath "org.flywaydb:flyway-gradle-plugin:3.2.1",
-                  "mysql:mysql-connector-java:5.1.16",
-                  "org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE"
+                "mysql:mysql-connector-java:5.1.16",
+                "org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE"
     }
 }
 
 apply plugin: 'org.flywaydb.flyway'
+apply plugin: 'idea'
 apply plugin: 'spring-boot'
-
-sourceCompatibility = 1.5
 
 repositories {
     mavenCentral()
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile "org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE"
+    compile "org.springframework.boot:spring-boot-starter-web:1.2.5.RELEASE",
+            "org.springframework.boot:spring-boot-starter-data-jpa",
+            "org.hibernate:hibernate-validator",
+            "mysql:mysql-connector-java:5.1.16"
 }
 
 flyway {
