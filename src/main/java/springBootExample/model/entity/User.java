@@ -80,7 +80,35 @@ public class User {
     @Override
     public String toString() {
         return String.format(
-                "User[id=%d, firstName='%s', lastName='%s', email='%s', dateOfBirth='%s']",
-                id, firstName, lastName, email, dateOfBirth);
+                "User[id=%d, firstName='%s', lastName='%s', email='%s', dateOfBirth='%s', createdAt='%s', updatedAt='%s']",
+                id, firstName, lastName, email, dateOfBirth, createdAt, updatedAt);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if ((this.firstName == null) ? (other.firstName != null) : !this.firstName.equals(other.firstName)) {
+            return false;
+        }
+        if ((this.lastName == null) ? (other.lastName != null) : !this.lastName.equals(other.lastName)) {
+            return false;
+        }
+        if ((this.email == null) ? (other.email != null) : !this.email.equals(other.email)) {
+            return false;
+        }
+        if ((this.dateOfBirth == null) ? (other.dateOfBirth != null) : !this.dateOfBirth.equals(other.dateOfBirth)) {
+            return false;
+        }
+        return true;
+    }
+
 }

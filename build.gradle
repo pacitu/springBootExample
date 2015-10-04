@@ -37,6 +37,7 @@ dependencies {
     compile('org.hibernate:hibernate-validator')
     compile('mysql:mysql-connector-java:5.1.16')
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("com.google.code.gson:gson:2.2.4")
 
     testCompile("junit:junit")
     testCompile('org.testng:testng:6.3.1')

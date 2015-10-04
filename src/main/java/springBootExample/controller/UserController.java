@@ -107,7 +107,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.PUT, value = "{id}")
     public
     @ResponseBody
-    JsonResponse update(@PathVariable String id, @RequestBody UserDto user) {
+    JsonResponse updateUser(@PathVariable String id, @RequestBody UserDto user) {
         ResponseManager rm = new ResponseManager();
 
         if (!userRepository.userExists(id)) {
