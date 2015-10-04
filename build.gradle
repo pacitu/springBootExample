@@ -36,10 +36,14 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.hibernate:hibernate-validator')
     compile('mysql:mysql-connector-java:5.1.16')
+    compile("org.springframework.boot:spring-boot-starter-actuator")
 
+    testCompile("junit:junit")
     testCompile('org.testng:testng:6.3.1')
     testCompile('org.easytesting:fest-assert:1.4')
+    testCompile("org.mockito:mockito-core:1.+")
 
+    testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
 flyway {
@@ -97,7 +101,3 @@ task generateMainMapperClasses(type: JavaCompile) {
 compileJava.dependsOn generateMainMapperClasses
 compileJava.options.define(compilerArgs: ["-proc:none", "-encoding", "UTF-8"])
 compileTestJava.options.define(compilerArgs: ["-proc:none", "-encoding", "UTF-8"])
-
-test {
-    useTestNG()
-}

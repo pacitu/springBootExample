@@ -25,20 +25,19 @@ import java.util.Set;
 @RequestMapping("/user")
 public class UserController {
 
-    /**
-     *
-     */
-    @Autowired
     private UserRepository userRepository;
 
     private Validator validator = null;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    public UserController() {
+    @Autowired
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
+
 
     /**
      * @param id
