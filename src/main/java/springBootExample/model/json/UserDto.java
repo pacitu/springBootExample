@@ -3,9 +3,8 @@ package springBootExample.model.json;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
-import java.util.Date;
 
-public class UserDto implements JsonResponse{
+public class UserDto implements JsonResponse {
 
     private long id;
 
@@ -13,18 +12,21 @@ public class UserDto implements JsonResponse{
     @NotNull
     private String email;
 
-    @Size(min=2, max=30)
+    @Size(min = 2, max = 30)
     @NotNull
     private String firstName;
 
-    @Size(min=2, max=30)
+    @Size(min = 2, max = 30)
     @NotNull
     private String lastName;
 
+    //TODO extend validation and add validator that converts the string to date and back and compares the result.
     @NotNull
+    @Pattern(regexp="^[12][0-9]{3}-\\d{2}-\\d{2}$", message="The date must be in yyyy-mm-dd format. Ex. 1985-04-04")
     private String dateOfBirth;
 
     public UserDto() {
+
     }
 
     public UserDto(long id, String email, String firstName, String lastName, String dateOfBirth) {
@@ -75,4 +77,5 @@ public class UserDto implements JsonResponse{
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
 }

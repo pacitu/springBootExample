@@ -1,0 +1,77 @@
+<div class="page-header">
+    <h1>User List</h1>
+</div>
+
+<div class="alert alert-info" role="alert" ng-hide="users && users.length > 0">
+    There are no users yet.
+</div>
+
+<div ng-hide="!users || users.length == 0">
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input type="text" class="form-control" placeholder="Search Users" ng-model="searchTerm">
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>
+                <a href="#/" ng-click="sortType = 'firstName'; sortReverse = !sortReverse">
+                    First Name
+                    <span ng-show="sortType == 'firstName' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'firstName' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#/" ng-click="sortType = 'lastName'; sortReverse = !sortReverse">
+                    Last Name
+                    <span ng-show="sortType == 'lastName' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'lastName' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#/" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+                    Email
+                    <span ng-show="sortType == 'email' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'email' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#/" ng-click="sortType = 'dateOfBirth'; sortReverse = !sortReverse">
+                    Date Of Birth
+                    <span ng-show="sortType == 'dateOfBirth' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'dateOfBirth' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
+                Actions
+            </td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="user in users | orderBy:sortType:sortReverse | filter:searchTerm">
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.dateOfBirth }}</td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-warning" href="#/edit/{{ user.id }}" type="button" title="Edit">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+
+                    <button class="btn btn-danger" type="button" title="Delete"
+                            ng-click="deleteUser(user)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,9 +1,6 @@
 package springBootExample.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,10 +12,14 @@ public class User {
     private String lastName;
     private String email;
     private String dateOfBirth;
+
+    @Transient
     private Date createdAt;
+
+    @Transient
     private Date updatedAt;
 
-    protected User() {
+    public User() {
     }
 
     public User(String firstName, String lastName, String email, String dateOfBirth) {
@@ -60,7 +61,6 @@ public class User {
         this.email = email;
     }
 
-    //TODO getDateOfBirth should be Date maybe?
     public String getDateOfBirth() {
         return dateOfBirth;
     }
@@ -69,26 +69,18 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "User[id=%d, firstName='%s', lastName='%s', email='%s', dateOfBirth='%s']",
-                id, firstName, lastName, email, dateOfBirth);
-    }
-
     public Date getCreatedAt() {
         return new Date(createdAt.getTime());
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Date getUpdatedAt() {
         return new Date(updatedAt.getTime());
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    @Override
+    public String toString() {
+        return String.format(
+                "User[id=%d, firstName='%s', lastName='%s', email='%s', dateOfBirth='%s']",
+                id, firstName, lastName, email, dateOfBirth);
     }
 }

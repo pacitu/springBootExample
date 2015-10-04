@@ -13,5 +13,4 @@ public class SuccessDto implements JsonResponse {
     }
 
     private boolean success = true;
-
 }
