@@ -123,6 +123,27 @@ public class UserControllerTest {
     }
 
     @Test
+    public void updateUserMalformedEmail() throws Exception {
+        Long userId = 1l;
+        UserDto userDto = new UserDto(userId, "Hello world!", "Pavel", "Kostadinov", "1985-04-04");
+        Gson gson = new Gson();
+        String json = gson.toJson(userDto);
+
+        when(mockRepo.userExists(userId.toString())).thenReturn(true);
+
+        User user = new User("Pavel", "Kostadinov", "pacitu@abv.bg", "1985-04-04");
+        user.setId(userId);
+
+        mvc.perform(MockMvcRequestBuilders.put("/user/" + userId.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk())
+                .andExpect(content().string(equalTo("{\"errors\":[\"email : not a well-formed email address\"]}")));
+
+        Mockito.verify(mockRepo, times(0)).save(user);
+    }
+
+    @Test
     public void updateUserMissingEmail() throws Exception {
         Long userId = 1l;
         UserDto userDto = new UserDto(userId, null, "Pavel", "Kostadinov", "1985-04-04");
@@ -193,7 +214,7 @@ public class UserControllerTest {
         String json = gson.toJson(userDto);
 
         when(mockRepo.userExists(userId.toString())).thenReturn(true);
-        
+
         User user = new User("Pavel", "Kostadinov", "pacitu@abv.bg", "1985-04-04");
         user.setId(userId);
 
@@ -223,6 +244,25 @@ public class UserControllerTest {
                 .andExpect(content().string(equalTo("{\"id\":" + userId.toString() + ",\"email\":\"pacitu@abv.bg\",\"firstName\":\"Pavel\",\"lastName\":\"Kostadinov\",\"dateOfBirth\":\"1985-04-04\"}")));
 
         Mockito.verify(mockRepo, times(1)).save(user);
+    }
+
+    @Test
+    public void addUserMalformedEmail() throws Exception {
+        Long userId = 1l;
+        UserDto userDto = new UserDto(userId, "Hello world!", "Pavel", "Kostadinov", "1985-04-04");
+        Gson gson = new Gson();
+        String json = gson.toJson(userDto);
+
+        User user = new User("Pavel", "Kostadinov", "pacitu@abv.bg", "1985-04-04");
+        user.setId(userId);
+
+        mvc.perform(MockMvcRequestBuilders.post("/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk())
+                .andExpect(content().string(equalTo("{\"errors\":[\"email : not a well-formed email address\"]}")));
+
+        Mockito.verify(mockRepo, times(0)).save(user);
     }
 
     @Test
